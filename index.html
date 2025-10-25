@@ -256,14 +256,15 @@
 <section id="jadwal" class="section">
     <h2>📅 Jadwal Pelajaran Kelas XI RPL</h2>
 
-    <div class="hari-buttons">
-      <button onclick="tampilkanHari('Senin')">Senin</button>
-      <button onclick="tampilkanHari('Selasa')">Selasa</button>
-      <button onclick="tampilkanHari('Rabu')">Rabu</button>
-      <button onclick="tampilkanHari('Kamis')">Kamis</button>
-      <button onclick="tampilkanHari('Jumat')">Jumat</button>
-      <button onclick="resetTabel()">Tampilkan Semua</button>
-    </div>
+    <!-- Tombol Hari (Versi Baru, Gaya Sama Seperti Piket) -->
+<div class="day-tabs">
+  <button class="day-tab active" onclick="tampilkanHari('Senin')">SENIN</button>
+  <button class="day-tab" onclick="tampilkanHari('Selasa')">SELASA</button>
+  <button class="day-tab" onclick="tampilkanHari('Rabu')">RABU</button>
+  <button class="day-tab" onclick="tampilkanHari('Kamis')">KAMIS</button>
+  <button class="day-tab" onclick="tampilkanHari('Jumat')">JUMAT</button>
+  <button class="day-tab" onclick="resetTabel()">SEMUA</button>
+</div>
 
     <div class="table-container">
       <table id="tabel-jadwal">
@@ -296,234 +297,200 @@
   </section>
 
   <script>
-    function tampilkanHari(hari) {
-      const kolomIndex = {
-        "Senin": 2,
-        "Selasa": 3,
-        "Rabu": 4,
-        "Kamis": 5,
-        "Jumat": 6
-      };
-      const tabel = document.getElementById("tabel-jadwal");
-      const index = kolomIndex[hari];
+function tampilkanHari(hari) {
+  const kolomIndex = {
+    "Senin": 2,
+    "Selasa": 3,
+    "Rabu": 4,
+    "Kamis": 5,
+    "Jumat": 6
+  };
+  const tabel = document.getElementById("tabel-jadwal");
+  const index = kolomIndex[hari];
 
-      for (let row of tabel.rows) {
-        for (let i = 2; i <= 6; i++) {
-          row.cells[i].style.display = (i === index) ? "table-cell" : "none";
-        }
+  tabel.classList.add('fade'); // animasi fade
+  setTimeout(() => {
+    for (let row of tabel.rows) {
+      for (let i = 2; i <= 6; i++) {
+        row.cells[i].style.display = (i === index) ? "table-cell" : "none";
       }
+    }
+    tabel.classList.remove('fade');
+  }, 250);
 
-      // highlight tombol aktif
-      document.querySelectorAll('.hari-buttons button').forEach(btn => btn.classList.remove('active'));
+  // tombol aktif
+  document.querySelectorAll('.day-tab').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function resetTabel() {
+  const tabel = document.getElementById("tabel-jadwal");
+  tabel.classList.add('fade');
+  setTimeout(() => {
+    for (let row of tabel.rows) {
+      for (let i = 2; i <= 6; i++) {
+        row.cells[i].style.display = "table-cell";
+      }
+    }
+    tabel.classList.remove('fade');
+  }, 250);
+
+  document.querySelectorAll('.day-tab').forEach(btn => btn.classList.remove('active'));
+}
+</script>
+        
+        <section id="piket" class="section">
+  <div class="card">
+    <h2>Jadwal Piket Kelas XI RPL</h2>
+
+    <!-- Tombol Hari -->
+    <div class="day-tabs">
+      <button class="day-tab active" onclick="showPiket('piket-senin')">SENIN</button>
+      <button class="day-tab" onclick="showPiket('piket-selasa')">SELASA</button>
+      <button class="day-tab" onclick="showPiket('piket-rabu')">RABU</button>
+      <button class="day-tab" onclick="showPiket('piket-kamis')">KAMIS</button>
+      <button class="day-tab" onclick="showPiket('piket-jumat')">JUMAT</button>
+    </div>
+
+    <!-- ==================== SENIN ==================== -->
+    <div id="piket-senin" class="piket-content active">
+      <h3 class="piket-day">🧹 Piket Hari Senin</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Petugas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Aisyah</td></tr>
+            <tr><td>2</td><td>Aulia</td></tr>
+            <tr><td>3</td><td>Safa</td></tr>
+            <tr><td>4</td><td>Putri</td></tr>
+            <tr><td>5</td><td>Dini</td></tr>
+            <tr><td>6</td><td>Rafael</td></tr>
+            <tr><td>7</td><td>A'an</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== SELASA ==================== -->
+    <div id="piket-selasa" class="piket-content">
+      <h3 class="piket-day">🧹 Piket Hari Selasa</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Petugas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Kirana</td></tr>
+            <tr><td>2</td><td>Kusnul</td></tr>
+            <tr><td>3</td><td>Lila</td></tr>
+            <tr><td>4</td><td>Ika</td></tr>
+            <tr><td>5</td><td>Risma</td></tr>
+            <tr><td>6</td><td>Andika</td></tr>
+            <tr><td>7</td><td>Mahfud</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== RABU ==================== -->
+    <div id="piket-rabu" class="piket-content">
+      <h3 class="piket-day">🧹 Piket Hari Rabu</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Petugas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Novita</td></tr>
+            <tr><td>2</td><td>Arin</td></tr>
+            <tr><td>3</td><td>Silvi</td></tr>
+            <tr><td>4</td><td>Diva</td></tr>
+            <tr><td>5</td><td>Aurel</td></tr>
+            <tr><td>6</td><td>Idar</td></tr>
+            <tr><td>7</td><td>Khasan</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== KAMIS ==================== -->
+    <div id="piket-kamis" class="piket-content">
+      <h3 class="piket-day">🧹 Piket Hari Kamis</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Petugas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Renatha</td></tr>
+            <tr><td>2</td><td>Charissa</td></tr>
+            <tr><td>3</td><td>Dinda</td></tr>
+            <tr><td>4</td><td>Eka</td></tr>
+            <tr><td>5</td><td>Tiara</td></tr>
+            <tr><td>6</td><td>Supri</td></tr>
+            <tr><td>7</td><td>Aga</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== JUMAT ==================== -->
+    <div id="piket-jumat" class="piket-content">
+      <h3 class="piket-day">🧹 Piket Hari Jumat</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Petugas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Nurya</td></tr>
+            <tr><td>2</td><td>Marsha</td></tr>
+            <tr><td>3</td><td>Datul</td></tr>
+            <tr><td>4</td><td>Astuti</td></tr>
+            <tr><td>5</td><td>Nisya</td></tr>
+            <tr><td>6</td><td>Anita</td></tr>
+            <tr><td>7</td><td>Lukman</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Motto -->
+    <div class="code-box">
+      <h3>Motto Kebersihan</h3>
+      <p>"Kebersihan adalah sebagian dari iman, maka jagalah kebersihan"</p>
+    </div>
+  </div>
+
+  <!-- Script Ganti Hari -->
+  <script>
+    function showPiket(id) {
+      const all = document.querySelectorAll('.piket-content');
+      all.forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('.day-tab').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
     }
-
-    function resetTabel() {
-      const tabel = document.getElementById("tabel-jadwal");
-      for (let row of tabel.rows) {
-        for (let i = 2; i <= 6; i++) {
-          row.cells[i].style.display = "table-cell";
-        }
-      }
-      document.querySelectorAll('.hari-buttons button').forEach(btn => btn.classList.remove('active'));
-    }
   </script>
-
-        
-         <section id="piket" class="section">
-            <div class="card">
-                <h2>Jadwal Piket Kelas</h2>
-                
-                <!-- Piket Day Tabs -->
-                <div class="day-tabs">
-                    <button class="day-tab active" onclick="showPiket('piket-senin')">SENIN</button>
-                    <button class="day-tab" onclick="showPiket('piket-selasa')">SELASA</button>
-                    <button class="day-tab" onclick="showPiket('piket-rabu')">RABU</button>
-                    <button class="day-tab" onclick="showPiket('piket-kamis')">KAMIS</button>
-                    <button class="day-tab" onclick="showPiket('piket-jumat')">JUMAT</button>
-                </div>
-
-                <!-- Piket Senin -->
-                <div id="piket-senin" class="piket-content active">
-                    <h3 class="piket-day">🧹 PIKET HARI SENIN</h3>
-                    <div class="piket-grid">
-                        <div class="piket-card">
-                            <div class="piket-number">1</div>
-                            <div class="piket-name">Aisyah</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">2</div>
-                            <div class="piket-name">Aulia</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">3</div>
-                            <div class="piket-name">Safa</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">4</div>
-                            <div class="piket-name">Putri</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">5</div>
-                            <div class="piket-name">Dini</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">6</div>
-                            <div class="piket-name">Rafael</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">7</div>
-                            <div class="piket-name">A'an</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Piket Selasa -->
-                <div id="piket-selasa" class="piket-content">
-                    <h3 class="piket-day">🧹 PIKET HARI SELASA</h3>
-                    <div class="piket-grid">
-                        <div class="piket-card">
-                            <div class="piket-number">1</div>
-                            <div class="piket-name">Kirana</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">2</div>
-                            <div class="piket-name">Kusnul</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">3</div>
-                            <div class="piket-name">Lila</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">4</div>
-                            <div class="piket-name">Ika</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">5</div>
-                            <div class="piket-name">Risma</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">6</div>
-                            <div class="piket-name">Andika</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">7</div>
-                            <div class="piket-name">Mahfud</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Piket Rabu -->
-                <div id="piket-rabu" class="piket-content">
-                    <h3 class="piket-day">🧹 PIKET HARI RABU</h3>
-                    <div class="piket-grid">
-                        <div class="piket-card">
-                            <div class="piket-number">1</div>
-                            <div class="piket-name">Novita</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">2</div>
-                            <div class="piket-name">Arin</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">3</div>
-                            <div class="piket-name">Silvi</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">4</div>
-                            <div class="piket-name">Diva</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">5</div>
-                            <div class="piket-name">Aurel</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">6</div>
-                            <div class="piket-name">Idar</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">7</div>
-                            <div class="piket-name">Khasan</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Piket Kamis -->
-                <div id="piket-kamis" class="piket-content">
-                    <h3 class="piket-day">🧹 PIKET HARI KAMIS</h3>
-                    <div class="piket-grid">
-                        <div class="piket-card">
-                            <div class="piket-number">1</div>
-                            <div class="piket-name">Renatha</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">2</div>
-                            <div class="piket-name">Charissa</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">3</div>
-                            <div class="piket-name">Dinda</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">4</div>
-                            <div class="piket-name">Eka</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">5</div>
-                            <div class="piket-name">Tiara</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">6</div>
-                            <div class="piket-name">Supri</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">7</div>
-                            <div class="piket-name">Aga</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Piket Jumat -->
-                <div id="piket-jumat" class="piket-content">
-                    <h3 class="piket-day">🧹 PIKET HARI JUMAT</h3>
-                    <div class="piket-grid">
-                        <div class="piket-card">
-                            <div class="piket-number">1</div>
-                            <div class="piket-name">Nurya</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">2</div>
-                            <div class="piket-name">Marsha</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">3</div>
-                            <div class="piket-name">Datul</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">4</div>
-                            <div class="piket-name">Astuti</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">5</div>
-                            <div class="piket-name">Nisya</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">6</div>
-                            <div class="piket-name">Anita</div>
-                        </div>
-                        <div class="piket-card">
-                            <div class="piket-number">7</div>
-                            <div class="piket-name">Lukman</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-box">
-                    <h3>Motto Kebersihan</h3>
-                    <p>"Kebersihan adalah sebagian dari iman, maka jagalah kebersihan"</p>
-                </div>
-            </div>
-        </section>
+</section>
 
         <section id="galeri" class="section">
             <div class="card">
